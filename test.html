@@ -55,11 +55,6 @@
 <body>
 <div id="app">
     <div class="container content" >
-            <!-- <ul v-for="q in questions">
-                    <li>
-                    <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> {{q.content}} </h4>
-                    </li>
-                </ul> -->
          <question></question>       
     </div>
     <div class="container button">
@@ -84,7 +79,7 @@
                 vm.answers[event.target.id] = event.target.value;
 
                 // 正确答案
-                vm.successes["answer1"] = 15;
+                vm.successes["answer1"] = "15";
             }
         }
     });
@@ -99,11 +94,20 @@
         },
         methods: {
             check: function() {
-                alert(JSON.stringify(vm.answers));
+                console.log(JSON.stringify(vm.answers));
+
+                var correctCount = 0;
+                var totalCount = 0;
+                for (const [key, value] of Object.entries(vm.successes)) {
+                    totalCount ++;
+                    if( vm.answers[key] && vm.answers[key] === vm.successes[key]){
+                        correctCount ++;
+                    }
+                }
 
                 // 检查回答和正确答案是否匹配
                 // 打分
-                vm.resultMessage = "100分";
+                vm.resultMessage = correctCount/totalCount * 100 + "分";
             }
         }
     });
