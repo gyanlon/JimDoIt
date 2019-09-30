@@ -55,11 +55,12 @@
 <body>
 <div id="app">
     <div class="container content" >
-            <ul v-for="q in questions">
+            <!-- <ul v-for="q in questions">
                     <li>
                     <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> {{q.content}} </h4>
                     </li>
-                </ul>
+                </ul> -->
+         <question></question>       
     </div>
     <div class="container button">
         <input type="button" class="primary-button" @click="check" value="做完了"/>
@@ -74,34 +75,47 @@
 <script type="text/javascript" src="lib/elementui/index.js"></script>
 
 <script type="text/javascript">
+
+    Vue.component('question', {
+        template: `<div>3 X 5 = <input id="answer1" @change="change"/></div>`,
+        methods: {
+            change: function (event) {
+                console.log(event.target.id, event.target.value)
+                vm.answers[event.target.id] = event.target.value;
+            }
+        }
+    });
+
     var vm = new Vue({
         el: "#app",
         data: {
             questions: [],
-            answers: [],
+            answers: {},
             resultMessage: ""
         },
         methods: {
             check: function() {
+                alert(JSON.stringify(vm.answers));
                 vm.resultMessage = "100分";
             }
         }
     });
 
-    class Question {
-        constructor(type) {
-            this.type = type;
-            this.template = " 3 X 5 = ?";
-            this.content = this.template;
-        }
+    // class Question {
+    //     constructor(type) {
+    //         this.type = type;
+    //         this.template = " 3 X 5 = <input @click='change'/>";
+    //         this.content = this.template;
+    //     }
 
-        build() {
-            //TODO:
-            return this;
-        }
-    }
+    //     build() {
+    //         //TODO:
+    //         return this;
+    //     }
+    // }
 
-    vm.questions.push(new Question(""));
+    // vm.questions.push(new Question(""));
+
 </script>
 
 </body>
