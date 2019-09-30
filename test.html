@@ -1,0 +1,109 @@
+<html>
+
+<head>
+    <title>基于vue+elementui</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="lib/elementui/theme-chalk/index.css" type="text/css">
+    <style>
+        body {
+            margin: 0px;
+            background-color: #4b595f;
+        }
+
+        /* 所有 */
+        #app {
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 1000px;
+            display: block;
+		    margin: auto;
+        }
+
+        .container.content {
+            margin-top: 100px !important;
+            height: 400px;
+            line-height: 400px;
+            background-color: #ffffff;
+        }    
+
+        .container.button {
+            height: 100px;
+            line-height: 100px;
+            position: relative;
+        }  
+
+        .container.button > input.primary-button{
+            position: absolute;
+            right: 0px;
+        } 
+
+        .container.result {
+            height: 200px;
+            line-height: 200px;
+        } 
+
+        tbody {
+            font-size: 15px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="container content" >
+            <ul v-for="q in questions">
+                    <li>
+                    <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> {{q.content}} </h4>
+                    </li>
+                </ul>
+    </div>
+    <div class="container button">
+        <input type="button" class="primary-button" @click="check" value="做完了"/>
+    </div>
+        
+    <div class="container result" v-if="resultMessage" >
+        {{resultMessage}}
+    </div>
+</div>
+<!-- 引入组件库 -->
+<script type="text/javascript" src="lib/vue.js"></script>
+<script type="text/javascript" src="lib/elementui/index.js"></script>
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            questions: [],
+            answers: [],
+            resultMessage: ""
+        },
+        methods: {
+            check: function() {
+                vm.resultMessage = "100分";
+            }
+        }
+    });
+
+    class Question {
+        constructor(type) {
+            this.type = type;
+            this.template = " 3 X 5 = ?";
+            this.content = this.template;
+        }
+
+        build() {
+            //TODO:
+            return this;
+        }
+    }
+
+    vm.questions.push(new Question(""));
+</script>
+
+</body>
+
+</html>
