@@ -82,6 +82,9 @@
             change: function (event) {
                 console.log(event.target.id, event.target.value)
                 vm.answers[event.target.id] = event.target.value;
+
+                // 正确答案
+                vm.successes["answer1"] = 15;
             }
         }
     });
@@ -91,30 +94,19 @@
         data: {
             questions: [],
             answers: {},
+            successes: {},
             resultMessage: ""
         },
         methods: {
             check: function() {
                 alert(JSON.stringify(vm.answers));
+
+                // 检查回答和正确答案是否匹配
+                // 打分
                 vm.resultMessage = "100分";
             }
         }
     });
-
-    // class Question {
-    //     constructor(type) {
-    //         this.type = type;
-    //         this.template = " 3 X 5 = <input @click='change'/>";
-    //         this.content = this.template;
-    //     }
-
-    //     build() {
-    //         //TODO:
-    //         return this;
-    //     }
-    // }
-
-    // vm.questions.push(new Question(""));
 
 </script>
 
